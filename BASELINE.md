@@ -37,3 +37,13 @@ These should be validated against live GSC before editing.
 - multiple 4-point inspection URL paths
 - link profile includes legacy/weak anchors
 - `llms.txt` not detected
+
+## Session note
+
+Live GSC and live-site verification are both blocked in this working
+environment (no GSC connector, no network egress to allcheck.biz). All
+Priority 1 recommendations built this session (`GSC_ANALYSIS.md`,
+`HOMEPAGE_BATCH.md`, `LOCAL_SEO_FOUNDATION.md`, `TECHNICAL_URL_CLEANUP.md`)
+are sourced directly from this audit's own crawl data and are flagged
+per-item as Waiting on Client / Waiting on Developer where live confirmation
+is still required before publishing.

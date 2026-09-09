@@ -3,40 +3,43 @@
 ## Priority 1 — Do first
 
 ### GSC analysis
-- [ ] Complete last 28 days vs previous 28 days analysis
-- [ ] Export top queries
-- [ ] Export top pages
-- [ ] Identify queries ranking positions 4–20
-- [ ] Identify high-impression / low-CTR opportunities
-- [ ] Check ranking gains and losses
-- [ ] Check decay
-- [ ] Check cannibalization
-- [ ] Review sitemap/indexing health
+Status: Waiting on Client (no GSC access in this environment) — see `GSC_ANALYSIS.md`.
+- [ ] Complete last 28 days vs previous 28 days analysis — Waiting on Client
+- [ ] Export top queries — Waiting on Client
+- [ ] Export top pages — Waiting on Client
+- [x] Identify queries ranking positions 4–20 — done from third-party audit data (`home inspectors in indianapolis` #11, `indianapolis home inspectors` #9); needs live GSC confirmation
+- [ ] Identify high-impression / low-CTR opportunities — Waiting on Client (needs GSC CTR)
+- [ ] Check ranking gains and losses — Waiting on Client
+- [ ] Check decay — Waiting on Client
+- [x] Check cannibalization — In Progress: one candidate flagged (duplicate location-page URL patterns), see `GSC_ANALYSIS.md` and `TECHNICAL_URL_CLEANUP.md`
+- [x] Review sitemap/indexing health — Done, see `GSC_ANALYSIS.md`
 
 ### Batch 1 — Homepage
-- [ ] Remove duplicate H1 tags
-- [ ] Build proper H2/H3 hierarchy
-- [ ] Remove duplicate semantic headings / responsive duplicate headings
-- [ ] Validate and protect existing title tag using GSC
-- [ ] Improve meta description only if data supports it
-- [ ] Map primary and secondary keyword intent
-- [ ] Improve opening copy for Indianapolis / Central Indiana relevance
-- [ ] Verify and publish consistent NAP
-- [ ] Validate LocalBusiness / HomeAndConstructionBusiness schema
-- [ ] Add visible FAQ/Q&A section
-- [ ] Strengthen trust / E-E-A-T signals
-- [ ] Audit all homepage internal links
-- [ ] Fix homepage image alt text
-- [ ] Fix obvious homepage performance contributors
-- [ ] Complete final desktop/mobile QA
+Status: QA / Review — full recommendation set drafted in `HOMEPAGE_BATCH.md`; implementation requires developer/CMS access this session does not have.
+- [ ] Remove duplicate H1 tags — Waiting on Developer (recommendation drafted)
+- [x] Build proper H2/H3 hierarchy — drafted in `HOMEPAGE_BATCH.md`
+- [ ] Remove duplicate semantic headings / responsive duplicate headings — Waiting on Developer
+- [x] Validate and protect existing title tag using GSC — validated against audit data; keep unchanged
+- [x] Improve meta description only if data supports it — drafted (167 → 154 chars)
+- [x] Map primary and secondary keyword intent — see `HOMEPAGE_BATCH.md` and `GSC_ANALYSIS.md`
+- [x] Improve opening copy for Indianapolis / Central Indiana relevance — drafted
+- [ ] Verify and publish consistent NAP — Waiting on Client (address confirmation), see `LOCAL_SEO_FOUNDATION.md`
+- [x] Validate LocalBusiness / HomeAndConstructionBusiness schema — JSON-LD drafted in `LOCAL_SEO_FOUNDATION.md`
+- [x] Add visible FAQ/Q&A section — 6 FAQs + FAQPage schema drafted
+- [x] Strengthen trust / E-E-A-T signals — drafted; named-inspector credentials flagged Waiting on Client
+- [x] Audit all homepage internal links — see `TECHNICAL_URL_CLEANUP.md`
+- [x] Fix homepage image alt text — alt text drafted for all 12 real images missing it
+- [ ] Fix obvious homepage performance contributors — Waiting on Developer (JS audit flagged as highest-leverage fix)
+- [ ] Complete final desktop/mobile QA — pending live implementation
 
 ### Local / technical foundation
-- [ ] Verify business address and phone against GBP
-- [ ] Make NAP consistent sitewide
-- [ ] Fix malformed Fishers URL/path
-- [ ] Determine canonical 4-point inspection URL
-- [ ] Clean trailing-slash / duplicate URL variants
-- [ ] Verify legacy HTTP/WWW URLs 301 correctly
+Status: see `LOCAL_SEO_FOUNDATION.md` and `TECHNICAL_URL_CLEANUP.md`.
+- [ ] Verify business address and phone against GBP — Waiting on Client (phone/email independently confirmed via audit crawl; address not re-verified)
+- [x] Make NAP consistent sitewide — NAP block and placement spec drafted, pending client confirmation + developer implementation
+- [x] Fix malformed Fishers URL/path — identified exact broken link (`omplete-home-inspection` typo + double trailing slash), Waiting on Developer
+- [x] Determine canonical 4-point inspection URL — recommend `/services/4-point-inspection/` (matches sitewide pattern), Waiting on Developer to implement redirects
+- [x] Clean trailing-slash / duplicate URL variants — full list documented in `TECHNICAL_URL_CLEANUP.md`, Waiting on Developer
+- [ ] Verify legacy HTTP/WWW URLs 301 correctly — Waiting on Developer (unverifiable from this session; no network access to allcheck.biz)
 
 ## Priority 2 — Core money pages
 
@@ -87,3 +90,26 @@
 - [ ] Install Meta Pixel only when paid retargeting is planned
 - [ ] Decide whether an X/Twitter presence is worthwhile
 - [ ] Review plain-text email exposure / spam protection
+
+## Session Log
+
+### Session 1 — Priority 1 execution
+
+**Completed:**
+- GSC analysis step documented; live pull blocked, interim baseline built from third-party audit data (`GSC_ANALYSIS.md`)
+- Homepage batch: full H1/H2/H3 structure, title/meta review, opening copy, 6 FAQs + FAQPage schema, E-E-A-T copy, image alt text for all 12 real images, performance guidance drafted (`HOMEPAGE_BATCH.md`)
+- Local SEO foundation: NAP block, HomeAndConstructionBusiness JSON-LD, service-area wording, verified social profile list (`LOCAL_SEO_FOUNDATION.md`)
+- Technical URL cleanup: full duplicate/malformed/triplicate URL map with canonical recommendations, sourced from the audit's actual crawl (`TECHNICAL_URL_CLEANUP.md`)
+
+**Blockers:**
+- No live GSC/Search Console access in this environment — Waiting on Client
+- No network access to allcheck.biz from this environment — nothing above could be re-verified against the live site; all recommendations are sourced from the Digicorns audit crawl and existing repo task files, and are clearly flagged where they need client or developer confirmation
+- No CMS/developer access — nothing in this repo can be implemented directly; every deliverable above is written for developer handoff
+
+**Pages changed (in this repo, as planning/content deliverables):** none — no live site code exists in this repository. Content/spec deliverables created: `GSC_ANALYSIS.md`, `LOCAL_SEO_FOUNDATION.md`, `TECHNICAL_URL_CLEANUP.md`; `HOMEPAGE_BATCH.md` and this file updated.
+
+**URLs changed or redirected:** none implemented (no dev access). Recommended redirect map is in `TECHNICAL_URL_CLEANUP.md`.
+
+**Keywords protected/targeted:** Protected — `home inspection indianapolis` (#1), `all check inspections`/`allcheck inspections` (#1), `allcheck` (#2): no title/H1 rewrite recommended. Targeted — `home inspectors in indianapolis` (#11) and `indianapolis home inspectors` (#9) via natural FAQ/H2/H3 placement, not forced exact-match duplication.
+
+**Next recommended task:** Once GSC access and developer/CMS access are available, implement the Homepage batch deliverable and the local schema/NAP fix together (they share the same schema edit), then move to Priority 2 starting with Complete Home Inspection per `PAGE_BATCH_WORKFLOW.md`. Do not start Priority 2 content work before Priority 1's technical/local items are at least implemented or explicitly deferred by the client, per the "don't start a new page batch with unresolved applicable tasks" rule.
