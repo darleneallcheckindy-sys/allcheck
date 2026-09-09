@@ -6,6 +6,14 @@ Coverage-report data (indexed vs. submitted counts, exclusion reasons,
 "Discovered — not indexed," etc.) is still **Blocked — Needs Live GSC
 Export** (Coverage report specifically was not among the files provided).
 
+## Search Appearance (real GSC export — empty)
+
+The Search Appearance export came back with zero rows — AllCheck currently
+has no special search-appearance types (rich results, FAQ snippets, review
+stars, etc.) showing in Google. This is expected given no FAQ schema exists
+yet (see `HOMEPAGE_BATCH.md`) — implementing valid, matching FAQ schema in
+Homepage Batch 1 is the most direct way to start populating this category.
+
 ## Urgent — confirmed by real GSC Pages export
 
 `Pages.csv` shows `http://www.allcheck.biz/` and `https://allcheck.biz/`
