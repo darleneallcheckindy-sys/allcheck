@@ -1,9 +1,14 @@
 # Cannibalization Check
 
 Status: **Real, GSC-confirmed page-level findings below** (from your real
-`Pages.csv` export). Query-level confirmation (which exact search terms are
-split between the two URLs of each pair) still needs the Queries export —
-see `STEP_1_GSC_BASELINE.md`. Do not consolidate any pages yet, per the rule
+`Pages.csv` export), now with real query data too. The Queries export
+confirms `home inspectors indianapolis`, `home inspection indianapolis`, and
+`allcheck inspections reviews` are all real, meaningful queries in their own
+right (see `PROTECT_KEYWORDS.md`, `opportunities_4_20.csv`) — but a plain
+Queries export reports totals across *all* pages combined for each query, so
+it cannot by itself confirm whether one URL or several are splitting that
+query's impressions. That still needs a query+page crosstab export (see
+`STEP_1_GSC_BASELINE.md`). Do not consolidate any pages yet, per the rule
 below — this file only flags.
 
 ## Confirmed page-level duplicates (both sides actively receiving impressions in GSC)
