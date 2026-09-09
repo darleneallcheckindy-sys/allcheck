@@ -193,27 +193,35 @@ improve this indexing number, not just clean up appearances.
 
 ### Recommended Page Order
 
-Updated given the real data:
+Updated given the real Coverage-report data (see `INDEXING_ISSUES.md` and
+`TECHNICAL_URL_CLEANUP.md` for full detail on items 1-3 below — these three
+are co-priority, not sequential, and a developer could work them in
+parallel):
 
-1. **Homepage www/non-www technical fix** (still first — this is now doubly
-   justified: both the page-level split and the corrected query positions
-   suggest ranking signal and click potential are currently being lost)
-2. Homepage content/AEO/GEO batch — now with a real, corrected keyword
+0. **Three co-equal urgent technical fixes, ahead of any content batch:**
+   - www→non-www 301 (ranking signal actively split)
+   - Block/deindex the publicly crawlable `/staging/*` site (likely the
+     single biggest driver of the site's 33 "crawled — not indexed" pages)
+   - Restore or redirect the 404'd `/greenwood-indiana/` page (confirmed
+     root cause of the real Greenwood ranking decline in
+     `RANKING_CHANGES.md`)
+1. Homepage content/AEO/GEO batch — now with a real, corrected keyword
    target set: push `home inspectors indianapolis` and `home inspection
    indianapolis` (both genuine opportunities, not protect-only), reinforce
-   `allcheck inspections` / `all check inspections` (real protect terms)
-3. Complete Home Inspection (after resolving its own 3-way URL split)
-4. Environmental Testing (after resolving its 2-way URL split)
-5. Radon Testing — note the "near me" anomaly cluster above touches this
+   `allcheck inspections` / `all check inspections` (real protect terms),
+   and reuse the real existing `/faq-items/*` content where it overlaps with
+   the drafted FAQ section rather than duplicating it
+2. Complete Home Inspection (after resolving its own 3-way URL split)
+3. Environmental Testing (after resolving its 2-way URL split)
+4. Radon Testing — note the "near me" anomaly cluster above touches this
    page's query set; investigate before assuming a content fix is needed
-6. Termite Inspection
-7. 4-Point Inspection (after URL consolidation)
-8. New Construction Phased Inspection
-9. End of Builder's Warranty / 11-Month Warranty
-10. **Avon and Greenwood location pages** — moved up in priority relative to
-    other locations given the real, opposite-direction signals found this
-    step (Avon improving fast, Greenwood declining) — both deserve a look
-    before the others
+5. Termite Inspection
+6. 4-Point Inspection (after URL consolidation)
+7. New Construction Phased Inspection
+8. End of Builder's Warranty / 11-Month Warranty
+9. **Avon and Greenwood location pages** — moved up in priority relative to
+   other locations given the real, opposite-direction signals found this
+   step (Avon improving fast, Greenwood's decline now root-caused to a 404)
 
 ## Stop point
 

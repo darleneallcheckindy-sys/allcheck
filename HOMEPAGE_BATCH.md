@@ -71,7 +71,7 @@ for developer implementation, pending the confirmations flagged inline.
 
 ### E-E-A-T
 - [x] Surface 18+ years experience — copy below
-- [ ] Surface inspector expertise/credentials only if verified — **Waiting on Client**: audit backlink data independently surfaces a NACHI-certified-inspector profile and a homeinspector.org profile for the name "Jason Satterthwaite" linking to allcheck.biz. This is a real signal worth pursuing for bios/E-E-A-T (Priority 3), but it must be confirmed with the client as the correct current inspector name/title before it is published anywhere — do not publish an unverified name.
+- [ ] Surface inspector expertise/credentials only if verified — **Waiting on Client**: audit backlink data independently surfaces a NACHI-certified-inspector profile and a homeinspector.org profile for the name "Jason Satterthwaite" linking to allcheck.biz. This is a real signal worth pursuing for bios/E-E-A-T (Priority 3), but it must be confirmed with the client as the correct current inspector name/title before it is published anywhere — do not publish an unverified name. A second, separate identity was also found via the real GSC Coverage report: an author account at `/author/arnoldv/` (see `data/gsc/INDEXING_ISSUES.md`). Do not assume this is the same person or an inspector at all — confirm who "arnoldv" is before using it anywhere.
 - [x] Use Home Inspector Institute context accurately — referenced generically per `ALLCHECK_BRAND.md`, no specific claims invented
 - [x] Surface strong review proof without overclaiming — see note below on the 604-review figure
 
@@ -193,6 +193,17 @@ This keeps the "knowledgeable neighbor + licensed professional" voice, uses
 the first two sentences without repeating the H1's exact phrase mechanically.
 
 ### FAQ section (visible Q&A — add near the bottom of the homepage, above the footer)
+
+**Before publishing the drafted FAQs below, check for reuse first.** The
+real GSC Coverage report (see `data/gsc/INDEXING_ISSUES.md`) confirms
+AllCheck already has a dedicated FAQ content type at `/faq-items/*` with
+real individual Q&A pages (e.g. "do-i-need-mold-testing",
+"will-you-get-on-the-roof") — the current `/faq/` page apparently only links
+to these rather than surfacing them, per the original audit finding. Check
+whether any of the drafted questions below already have an existing,
+client-approved answer at `/faq-items/*` and reuse that exact wording where
+it overlaps, rather than publishing a fresh, possibly-inconsistent answer to
+the same question in two places on the site.
 
 ```
 ### What does a home inspection in Indianapolis include?

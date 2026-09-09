@@ -24,12 +24,15 @@ treating as the headline finding of Step 1, not a footnote.
 | home inspector greenwood in | 17.70 | 23.49 | 63 → 59 |
 | home inspection indianapolis | 7.14 | 6.36 | *(improved, listed for context — see correction in PROTECT_KEYWORDS.md)* |
 
-The Greenwood cluster is worth a second look together — three related
-Greenwood queries all declined by 5-7 positions in the same window. That's
-consistent enough across three variants of the same city+intent to be a real
-pattern (e.g., something changed on the Greenwood page, or a competitor
-moved), not coincidence. Recommend checking `complete-home-inspection-greenwood-indiana/`
-specifically when that page comes up in a batch.
+**Root cause found.** The Greenwood cluster — three related Greenwood
+queries all declined by 5-7 positions in the same window — is now explained:
+the real GSC Coverage report shows **`https://allcheck.biz/greenwood-indiana/`
+returns 404** (last crawled Jul 10, 2026). This is the city-hub page pattern
+that mirrors the working `/avon-indiana/` page. The *service* page
+(`complete-home-inspection-greenwood-indiana/`) still exists and has real
+traffic, but the dedicated location-hub page is missing or broken — see
+`TECHNICAL_URL_CLEANUP.md` for the fix. This is no longer just "worth a
+second look," it's a confirmed, fixable cause.
 
 ## Improved — real gains worth protecting going forward
 
@@ -86,8 +89,9 @@ significant.
 
 ## Action needed
 
-- [ ] Investigate the Greenwood decline cluster when that location page
-      comes up in Priority 3.
+- [x] Investigate the Greenwood decline cluster — root cause found: 404'd
+      `/greenwood-indiana/` page, see `TECHNICAL_URL_CLEANUP.md`. Fix should
+      happen as part of the technical cleanup, not wait for Priority 3.
 - [ ] Understand what changed for the Avon page/cluster before editing it,
       so we don't accidentally undo a real gain.
 - [ ] Manual SERP check on the "near me" anomaly cluster (see

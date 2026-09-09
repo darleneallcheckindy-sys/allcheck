@@ -21,12 +21,54 @@ text → LocalBusiness schema → address/NAP → meta description → URL clean
 Google as two different pages with very different average positions (3.71 vs
 29.95) — and the same www split shows up on `/contact-us/` too. This is no
 longer a theoretical crawl-based concern; it's live, GSC-confirmed evidence
-that ranking signal may be split away from the canonical URL sitewide. **Move
-the www→non-www (and any remaining http→https) 301 redirect fix to the very
-top of this file's priority, ahead of the trailing-slash and location-page
-cleanups below.**
+that ranking signal may be split away from the canonical URL sitewide.
 
-## Confirmed duplicate / inconsistent URL pairs (both seen live in crawl)
+**Second escalation, equally urgent:** the real GSC Coverage report (see
+`data/gsc/INDEXING_ISSUES.md`) shows a **publicly crawlable staging site**
+at `/staging/*` duplicating real content, and a **404'd Greenwood location
+page** (`/greenwood-indiana/`) that directly explains a real ranking decline
+already seen in `data/gsc/RANKING_CHANGES.md`.
+
+**Updated top priority order, all co-equal urgent (not sequential — a
+developer could take these in parallel):**
+1. www→non-www 301 (and any remaining http→https)
+2. Block/deindex `/staging/*` entirely
+3. Restore or redirect `/greenwood-indiana/`
+
+Then the trailing-slash and location-page-pattern cleanups below.
+
+## NEW — publicly crawlable staging site (co-top-priority)
+
+The real GSC Coverage report shows at least 9 URLs under `/staging/` being
+crawled as live, indexable duplicate content: `/staging/indoor-air-quality-testing/`
+(and no-slash twin), `/staging/new-construction-phased`,
+`/staging/mold-and-mildew-testing/`, `/staging/be-an-informed-buyer/`,
+`/staging/news/`, `/staging/limited-warranty` (and slash twin),
+`/staging/sample-inspection-agreement`. Full detail in
+`data/gsc/INDEXING_ISSUES.md`.
+
+**Fix:** `Disallow: /staging/` in `robots.txt`, server-level `noindex` for
+that path, and ideally HTTP auth or a non-public subdomain so it's never
+crawlable. This is likely the single largest contributor to the site's 33
+"crawled — currently not indexed" pages — bigger than any individual
+trailing-slash duplicate below.
+
+## NEW — `/greenwood-indiana/` 404 (explains a real ranking decline)
+
+`https://allcheck.biz/greenwood-indiana/` — the location-hub URL matching
+the pattern of the working `/avon-indiana/` page — returns 404 (last
+crawled Jul 10, 2026). This is the most likely cause of the Greenwood
+decline cluster in `data/gsc/RANKING_CHANGES.md` (three Greenwood queries
+all dropped 5-7 positions in the same window). Note:
+`/complete-home-inspection-greenwood-indiana/` (the *service*+city page)
+still exists and has real traffic — it's specifically the city-hub page
+that's missing/broken.
+
+**Fix:** confirm with developer whether this page existed before and was
+removed/renamed; restore it or 301 it to whichever page should now serve
+that intent.
+
+## Confirmed duplicate / inconsistent URL pairs (both seen live in crawl, now expanded with real Coverage-report evidence)
 
 | Canonical (recommended) | Duplicate/variant also found | Fix |
 |---|---|---|
@@ -34,6 +76,19 @@ cleanups below.**
 | `https://allcheck.biz/radon-testing/` | `https://allcheck.biz/radon-testing` | Same — 301 non-slash → slash |
 | `https://allcheck.biz/indoor-air-quality-testing/` | `https://allcheck.biz/indoor-air-quality-testing` | Same |
 | `https://allcheck.biz/terms-of-service/` | `https://allcheck.biz/terms-of-service` | Same |
+| `https://allcheck.biz/glossary-of-terms/` | `https://allcheck.biz/glossary-of-terms` | Same — confirmed via real Coverage report, not previously flagged |
+| `https://allcheck.biz/new-construction-phased/` | `https://allcheck.biz/new-construction-phased` | Same — confirmed via real Coverage report |
+| `https://allcheck.biz/agents/` | `https://allcheck.biz/agents` | Same — confirmed via real Coverage report |
+| `https://allcheck.biz/limited-warranty/` | `https://allcheck.biz/limited-warranty` | Same — confirmed via real Coverage report |
+| `https://allcheck.biz/services/` | `https://allcheck.biz/services` | Same — confirmed via real Coverage report |
+
+Also confirmed via the real Coverage report: URL-parameter duplicates of
+real pages are being crawled as separate URLs (RSS/social-share tracking
+params like `?utm_source=rss&...`, `?source=post_page...`,
+`?trk=organization_guest_main-feed-card-text`). Same root cause as the
+above — canonical tags aren't reliably collapsing these back to the clean
+URL. Fix at the template/canonical-tag level rather than one redirect at a
+time.
 
 ## Confirmed duplicate location-page URL *patterns* (same city, two different URL structures both indexed)
 
@@ -46,9 +101,9 @@ GSC before finalizing (see `GSC_ANALYSIS.md` — do not pick blind).
 
 | City | Pattern A (found live) | Pattern B (found live) |
 |---|---|---|
-| Carmel | `/complete-home-inspection-carmel-indiana/` | `/complete-home-inspection/carmel-indiana/` |
+| Carmel | `/complete-home-inspection-carmel-indiana/` | `/complete-home-inspection/carmel-indiana/` — **confirmed real and being crawled** (shows in the "crawled — not indexed" bucket, unlike Fishers' equivalent which 404s), so this decision is still genuinely open, not resolved by the 404 check |
 | Central Indiana | `/complete-home-inspection-central-indiana/` | `/complete-home-inspection/central-indiana/` |
-| Fishers | `/complete-home-inspection-fishers-indiana/` | `/complete-home-inspection/fishers-indiana//` **(malformed — trailing double slash, see below)** |
+| Fishers | `/complete-home-inspection-fishers-indiana/` | **RESOLVED** — the single-slash version (`/complete-home-inspection/fishers-indiana/`) is confirmed 404 via the real Coverage report. Pattern A is the only real page for Fishers; no redirect decision needed here, just confirm this 404 doesn't need restoring (it's correctly gone). The malformed double-slash variant below is a separate, still-open issue. |
 | Noblesville | `/complete-home-inspection-noblesville-indiana/` | `/complete-home-inspection/noblesville-indiana/` |
 | Greenwood | `/complete-home-inspection-greenwood-indiana/` | not seen in this crawl — developer should confirm whether a Pattern B page exists or 404s before redirecting |
 
@@ -117,7 +172,11 @@ paths from what appears to be a prior Joomla-based site:
 - `http://www.allcheck.biz/component/k2/item/1-lorem-ipsum-is-simply-dumm...` (1 backlink)
 - `http://allcheck.biz/component/k2/item/2-where-does-it-come-from.html` (1 backlink)
 - `http://www.allcheck.biz/_information/articles/keep_basement_web.pdf` (30 backlinks — meaningful equity)
-- `http://www.allcheck.biz/_information/warranty.htm` (1 backlink)
+- `http://www.allcheck.biz/_information/warranty.htm` (1 backlink per the
+  original audit — **confirmed via the real Coverage report to currently
+  404** (shown as `https://allcheck.biz/_information/warranty.htm` in the
+  real 404 examples). Modest backlink count, but free, real equity — 301 to
+  `/services/end-of-builders-warranty/`.)
 - `http://www.allcheck.biz/inspections/complete-home-inspection.html` (1 backlink)
 
 **Action:** confirm whether these currently 404 or already redirect. The
@@ -145,11 +204,18 @@ current redirect status.
 
 | Item | Status |
 |---|---|
-| contact-us / radon-testing / indoor-air-quality-testing / terms-of-service trailing-slash dupes | Waiting on Developer |
-| Location-page URL pattern consolidation (Carmel/Central Indiana/Fishers/Noblesville) | Waiting on Client input (pick pattern) + Developer (implement) — see note above re: checking GSC first |
+| **Staging site publicly crawlable (`/staging/*`)** | **Waiting on Developer — new top priority** |
+| **`/greenwood-indiana/` 404 (explains real ranking decline)** | **Waiting on Developer — new top priority** |
+| www / http variant redirects | Waiting on Developer — top priority, GSC-confirmed |
+| contact-us / radon-testing / indoor-air-quality-testing / terms-of-service / glossary-of-terms / new-construction-phased / agents / limited-warranty / services trailing-slash dupes | Waiting on Developer — list expanded via real Coverage report |
+| URL-parameter duplicates (RSS/social-share tracking params) | Waiting on Developer — same root cause as trailing-slash dupes (unreliable canonical tags) |
+| Location-page URL pattern consolidation — Carmel, Central Indiana, Noblesville still open; **Fishers resolved** (Pattern B confirmed 404, no action needed) | Waiting on Client input (pick pattern) + Developer (implement) |
 | Malformed `omplete-home-inspection` typo link | Waiting on Developer |
-| Fishers double-trailing-slash | Waiting on Developer |
+| Fishers double-trailing-slash (`/complete-home-inspection/fishers-indiana//`) | Waiting on Developer |
 | 4-Point Inspection triplicate URLs | Waiting on Developer — canonical recommendation given above |
 | Environmental Testing `-2` slug | Waiting on Developer (needs history check) |
-| Legacy Joomla URLs with backlinks | Waiting on Developer |
-| www / http variant redirects | Waiting on Developer (unverifiable from this session) |
+| `/_information/warranty.htm` 404 (1 backlink) | Waiting on Developer — 301 target identified |
+| `/_information/articles/keep_basement_web.pdf` (30 backlinks) status | Waiting on Developer — not yet confirmed 404 or live |
+| Legacy Joomla URLs (component/k2/item/...) | Waiting on Developer |
+| Legacy duplicate PDF paths (`/pdf/*.pdf` vs `/wp-content/uploads/.../*_web.pdf`) | Waiting on Developer — low priority |
+| `/our-standards/` possible duplicate of `/standards-of-practice/` | Waiting on Developer to confirm |
