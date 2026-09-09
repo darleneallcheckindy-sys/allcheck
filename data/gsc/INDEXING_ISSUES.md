@@ -1,10 +1,54 @@
 # Sitemap & Indexing Health
 
-Status: **Partially complete, with one urgent GSC-confirmed finding.**
-Crawl-verifiable facts below are confirmed from the Digicorns audit. True GSC
-Coverage-report data (indexed vs. submitted counts, exclusion reasons,
-"Discovered — not indexed," etc.) is still **Blocked — Needs Live GSC
-Export** (Coverage report specifically was not among the files provided).
+Status: **Done — real GSC Coverage/Indexing data received.**
+
+## Headline finding: 62 of ~149 known pages are NOT indexed right now
+
+Real Coverage report data (`Chart.csv`, `Critical_issues.csv`), most recent
+date (2026-09-04): **62 pages not indexed, 87 indexed** (~149 known pages
+total, so ~42% of the site isn't in Google's index at all). The five
+exclusion reasons sum exactly to 62, so this is internally consistent, real
+data:
+
+| Reason | Source | Pages | Read |
+|---|---|---:|---|
+| Crawled - currently not indexed | Google systems | **33** | Google visited these pages and chose not to index them — typically a thin/duplicate/low-value-content signal. This is over half of all excluded pages and the single biggest issue on the site. Directly consistent with the duplicate-URL problem already flagged in `TECHNICAL_URL_CLEANUP.md` and `CANNIBALIZATION.md` — Google may be seeing near-duplicate location/service pages and declining to index the weaker copies. |
+| Excluded by 'noindex' tag | Website | 9 | **Needs the actual URL list** — if any of these are pages that should be indexed (a service or location page accidentally noindexed), that's an urgent fix. A count alone can't tell us that. |
+| Page with redirect | Website | 9 | Expected if these are the known duplicate-URL redirects already in place — but needs the URL list to confirm they're the *intended* redirects and not something unrelated. |
+| Not found (404) | Website | 8 | **Needs the URL list** — cross-check against the legacy Joomla URLs with real backlinks flagged in `TECHNICAL_URL_CLEANUP.md` (e.g. `/component/k2/item/...`, `/_information/warranty.htm`). If any of those 8 are the same URLs, that's real link equity being lost to a 404 instead of a 301. |
+| Alternate page with proper canonical tag | Website | 3 | Only 3 pages currently resolve correctly via canonical tag. Given how many duplicate URL *pairs* exist sitewide (contact-us, radon-testing, environmental-testing, the location-page pattern pairs, the 4-point triplicate), this number should be much higher if canonicalization were working properly — **this confirms most of those duplicate pairs do NOT have working canonical tags**, reinforcing the urgency in `TECHNICAL_URL_CLEANUP.md`. |
+
+## Trend over time (real, from Chart.csv, June 11 – Sept 4)
+
+Indexing health has been **improving**, not worsening: "Not indexed" dropped
+from 114 (mid-June) to 62 (current), while "Indexed" grew from 81 to 87. The
+drops happened in visible steps (e.g. 92→76 around Aug 22, 76→62 around Aug
+29) rather than gradually, suggesting periodic re-crawls picked up fixes
+already made. This is a positive baseline signal, but 62 un-indexed pages is
+still a real, substantial problem worth acting on, not something to treat as
+resolved.
+
+## What's still needed to act on this
+
+The counts above tell us *how many* and *why*, but not *which* pages. GSC
+lets you click into each reason row to see the actual URL list — please
+export those for at least these two (most actionable):
+- [ ] **Waiting on Client:** URL list for "Excluded by 'noindex' tag" (9
+      pages) — confirms nothing important is accidentally hidden from Google.
+- [ ] **Waiting on Client:** URL list for "Not found (404)" (8 pages) — to
+      cross-check against the legacy Joomla backlink URLs.
+- [ ] Lower priority: URL list for "Crawled - currently not indexed" (33
+      pages) — useful for confirming which specific pages Google considers
+      too thin/duplicate, but likely overlaps heavily with pages already
+      flagged in `TECHNICAL_URL_CLEANUP.md`.
+
+## Search Appearance (real GSC export — empty)
+
+The Search Appearance export came back with zero rows — AllCheck currently
+has no special search-appearance types (rich results, FAQ snippets, review
+stars, etc.) showing in Google. This is expected given no FAQ schema exists
+yet (see `HOMEPAGE_BATCH.md`) — implementing valid, matching FAQ schema in
+Homepage Batch 1 is the most direct way to start populating this category.
 
 ## Search Appearance (real GSC export — empty)
 
@@ -73,6 +117,7 @@ Summary of what affects indexing specifically:
 
 ## Action needed
 
-- [ ] **Waiting on Client:** GSC Coverage/Indexing report export to confirm
-      actual indexed status, any "Discovered — currently not indexed" pages,
-      and canonical-URL mismatches Google has chosen on its own.
+- [x] GSC Coverage/Indexing report received and processed — see headline
+      finding above. Superseded the earlier "blocked" status.
+- [ ] **Waiting on Client:** URL lists for the noindex (9) and 404 (8)
+      buckets specifically — see above.

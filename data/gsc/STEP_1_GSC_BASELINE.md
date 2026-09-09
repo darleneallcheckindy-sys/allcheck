@@ -9,27 +9,39 @@ Establish the current organic-search baseline before changing any page.
 Identify ranking opportunities, pages to protect, CTR problems, declines,
 cannibalization, and indexing issues.
 
-## Status: Core exports received — one gap remains
+## Status: Step 1 is essentially complete
 
 You've now provided real GSC exports with full current + previous 28-day
 comparison for **Countries, Devices, Pages, and Queries** (1,360 real
-queries). This is the core of the Performance report and is enough to
-complete almost everything in Step 1. All numbers below are computed
+queries), plus **Search Appearance** and the **Coverage/Indexing report**
+(Chart, Critical issues, Metadata, Noncritical issues). That covers every
+major Performance and Indexing report tab. All numbers below are computed
 directly from your files and cross-validated against each other (device
-totals, country totals, and the daily chart all agree).
+totals, country totals, the daily chart, and the indexing issue counts all
+agree with their respective grand totals).
 
-**Still missing:** a **query + page crosstab** (both dimensions applied
-together in GSC's Performance report, exported as one table). Without it, we
-know *which queries* are strong/weak and *which pages* are strong/weak, but
-not definitively *which page ranks for which query* in every case. This
-matters most for confirming exactly which URL is capturing
-`home inspectors indianapolis`, `home inspection indianapolis`, and the
-branded terms. How to get it: in Performance → Search results, click **+ New**
-→ add both "Query" and "Page" as active dimensions (or use the "Pages" tab
-then click into an individual query row, which shows the same breakdown one
-query at a time for your top queries). Not urgent enough to block the rest of
-this analysis, but needed before finalizing exactly which page to edit for
-some of the findings below.
+**One gap remains: the query + page crosstab.** You tried pulling this for
+`home inspection indianapolis` and `home inspectors indianapolis` and both
+came back "no data" — that's unexpected, since both queries have real
+clicks/impressions in the plain Queries export, so a page must be receiving
+them. Two likely causes, worth a quick recheck:
+1. **Exact-match filtering.** If you filtered the query as an exact string
+   match, small formatting differences (extra space, different case — GSC
+   is usually case-insensitive but the filter UI can be finicky) can return
+   zero rows. Try "Queries containing" instead of an exact match first, then
+   narrow down.
+2. **Wrong report/filter combination.** The reliable path in GSC: open
+   Performance → Search results, click **+ New** → **Query** → "Exact query"
+   → paste the term (or "Query contains" for a looser match) → Apply. Then,
+   with that filter active, click the **Pages** tab (not Queries) — it will
+   show the pages receiving impressions for that filtered query. If that
+   still shows nothing, the query's data may be too sparse to show a page
+   breakdown at all (GSC sometimes withholds low-volume combinations).
+
+This isn't blocking — we have enough real signal without it. If it doesn't
+work on a retry, we can proceed on the working assumption that these terms
+map to the homepage (most plausible given the phrasing) and confirm later
+once a redirect/schema fix is live and new data comes in.
 
 ## The single most important correction in this step
 
@@ -165,9 +177,19 @@ technical priority. Query-level cannibalization (confirming whether, e.g.,
 across two different pages) still needs the query+page crosstab.
 
 ### Indexing / Technical Findings
-Unchanged from the prior pull — sitemap, robots.txt, and canonical facts
-confirmed via the original site crawl; GSC Coverage report specifically
-still not provided. The www/non-www split is the standout technical issue.
+**Real Coverage data now in: 62 of ~149 known pages (42%) are not indexed**,
+with over half of those (33) due to Google crawling them and choosing not to
+index them — usually a thin/duplicate-content signal. This is now a
+headline technical finding, not a minor note — see `INDEXING_ISSUES.md` for
+the full breakdown. Combined with the www/non-www split (still the top
+priority) and the confirmed lack of working canonical tags on most duplicate
+URL pairs (only 3 pages show a working canonical relationship, far fewer
+than the number of duplicate pairs on the site), this points at one root
+cause worth stating plainly: **AllCheck likely has more duplicate/near-
+duplicate URLs live than previously visible, and Google is responding by
+simply not indexing the weaker copies rather than merging their signal.**
+Fixing the URL consolidation in `TECHNICAL_URL_CLEANUP.md` should directly
+improve this indexing number, not just clean up appearances.
 
 ### Recommended Page Order
 
