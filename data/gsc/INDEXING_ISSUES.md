@@ -1,10 +1,23 @@
 # Sitemap & Indexing Health
 
-Status: **Partially complete.** Crawl-verifiable facts below are confirmed
-from the Digicorns audit. True GSC Coverage-report data (indexed vs.
-submitted counts, exclusion reasons, "Discovered — not indexed," etc.) is
-**Blocked — Needs Live GSC Export**, since no Search Console access exists in
-this session.
+Status: **Partially complete, with one urgent GSC-confirmed finding.**
+Crawl-verifiable facts below are confirmed from the Digicorns audit. True GSC
+Coverage-report data (indexed vs. submitted counts, exclusion reasons,
+"Discovered — not indexed," etc.) is still **Blocked — Needs Live GSC
+Export** (Coverage report specifically was not among the files provided).
+
+## Urgent — confirmed by real GSC Pages export
+
+`Pages.csv` shows `http://www.allcheck.biz/` and `https://allcheck.biz/`
+as two separate entries with very different average positions (3.71 vs
+29.95) and impression volumes (2,487 vs 8,719) — see `CANNIBALIZATION.md`
+for full detail. This means Google is not treating the www→non-www
+redirect as fully consolidated (or it isn't 301ing at all), despite the
+canonical tag correctly declaring `https://allcheck.biz/`. The same www
+split appears on `/contact-us/` too, so this is sitewide, not homepage-only.
+**Recommend this move to the top of the technical priority list** — ahead of
+the trailing-slash and location-page cleanups — since it may be actively
+splitting the site's strongest ranking signal away from the canonical URL.
 
 ## Confirmed (from audit crawl, verifiable facts — not GSC)
 

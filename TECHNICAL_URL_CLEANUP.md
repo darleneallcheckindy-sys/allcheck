@@ -10,11 +10,21 @@ URLs found live in the crawl. Where only one variant appears in the crawl,
 that is noted so the developer can spot-check the other rather than being
 told it doesn't exist.
 
-## Priority order (per CLAUDE.md / audit)
+## Priority order (per CLAUDE.md / audit) — UPDATED after real GSC data
 
-Duplicate H1s → heading hierarchy → page speed → missing alt text →
-LocalBusiness schema → address/NAP → meta description → **this file's URL
-cleanup** is scheduled alongside the local/technical foundation work.
+Original order: duplicate H1s → heading hierarchy → page speed → missing alt
+text → LocalBusiness schema → address/NAP → meta description → URL cleanup.
+
+**Escalation:** real GSC data (`data/gsc/Pages.csv` export, see
+`data/gsc/CANNIBALIZATION.md` and `data/gsc/INDEXING_ISSUES.md`) confirms
+`http://www.allcheck.biz/` and `https://allcheck.biz/` are being tracked by
+Google as two different pages with very different average positions (3.71 vs
+29.95) — and the same www split shows up on `/contact-us/` too. This is no
+longer a theoretical crawl-based concern; it's live, GSC-confirmed evidence
+that ranking signal may be split away from the canonical URL sitewide. **Move
+the www→non-www (and any remaining http→https) 301 redirect fix to the very
+top of this file's priority, ahead of the trailing-slash and location-page
+cleanups below.**
 
 ## Confirmed duplicate / inconsistent URL pairs (both seen live in crawl)
 
