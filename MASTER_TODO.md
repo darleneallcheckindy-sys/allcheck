@@ -33,13 +33,22 @@ Status: QA / Review — full recommendation set drafted in `HOMEPAGE_BATCH.md`; 
 - [ ] Complete final desktop/mobile QA — pending live implementation
 
 ### Local / technical foundation
-Status: see `LOCAL_SEO_FOUNDATION.md` and `TECHNICAL_URL_CLEANUP.md`.
+Status: **Ready for Developer** — see `LOCAL_SEO_FOUNDATION.md` and
+`TECHNICAL_URL_CLEANUP.md` for full findings; the three most critical items
+(www/non-www split, public staging site, `/greenwood-indiana/` 404) are now
+packaged as a standalone handoff ticket at
+`tasks/PRIORITY_1_TECHNICAL_DEVELOPER_TICKET.md`, ready to hand to a
+developer as-is. **No live changes have been made to allcheck.biz** — this
+status change reflects that the ticket is ready to be worked, not that the
+fixes are implemented.
 - [ ] Verify business address and phone against GBP — Waiting on Client (phone/email independently confirmed via audit crawl; address not re-verified)
 - [x] Make NAP consistent sitewide — NAP block and placement spec drafted, pending client confirmation + developer implementation
 - [x] Fix malformed Fishers URL/path — identified exact broken link (`omplete-home-inspection` typo + double trailing slash), Waiting on Developer
 - [x] Determine canonical 4-point inspection URL — recommend `/services/4-point-inspection/` (matches sitewide pattern), Waiting on Developer to implement redirects
 - [x] Clean trailing-slash / duplicate URL variants — full list documented in `TECHNICAL_URL_CLEANUP.md`, Waiting on Developer
-- [ ] Verify legacy HTTP/WWW URLs 301 correctly — Waiting on Developer (unverifiable from this session; no network access to allcheck.biz)
+- [x] Verify legacy HTTP/WWW URLs 301 correctly — **Ready for Developer**, see `tasks/PRIORITY_1_TECHNICAL_DEVELOPER_TICKET.md` Issue 1 for the exact redirect map and validation steps
+- [x] Lock down publicly crawlable staging site (`/staging/*`) — **Ready for Developer**, see `tasks/PRIORITY_1_TECHNICAL_DEVELOPER_TICKET.md` Issue 2
+- [x] Restore or redirect 404'd `/greenwood-indiana/` — **Ready for Developer**, see `tasks/PRIORITY_1_TECHNICAL_DEVELOPER_TICKET.md` Issue 3
 
 ## Priority 2 — Core money pages
 
@@ -113,3 +122,14 @@ Status: see `LOCAL_SEO_FOUNDATION.md` and `TECHNICAL_URL_CLEANUP.md`.
 **Keywords protected/targeted:** Protected — `home inspection indianapolis` (#1), `all check inspections`/`allcheck inspections` (#1), `allcheck` (#2): no title/H1 rewrite recommended. Targeted — `home inspectors in indianapolis` (#11) and `indianapolis home inspectors` (#9) via natural FAQ/H2/H3 placement, not forced exact-match duplication.
 
 **Next recommended task:** Once GSC access and developer/CMS access are available, implement the Homepage batch deliverable and the local schema/NAP fix together (they share the same schema edit), then move to Priority 2 starting with Complete Home Inspection per `PAGE_BATCH_WORKFLOW.md`. Do not start Priority 2 content work before Priority 1's technical/local items are at least implemented or explicitly deferred by the client, per the "don't start a new page batch with unresolved applicable tasks" rule.
+
+### Session 2 — Real GSC data integration + technical developer ticket
+
+**Completed:**
+- Full real GSC Performance and Coverage/Indexing data processed (Queries, Pages, Devices, Countries, Search Appearance, Coverage) — see `data/gsc/`. Corrected the original third-party audit's keyword positions against real data.
+- Identified three critical technical issues from real GSC evidence: www/non-www ranking split, publicly crawlable staging site, and a 404'd `/greenwood-indiana/` page that explains a real ranking decline.
+- Packaged the three critical issues into a standalone developer handoff: `tasks/PRIORITY_1_TECHNICAL_DEVELOPER_TICKET.md` — includes exact redirect mapping, safe staging-removal sequencing, a Greenwood restore-vs-redirect decision rule, implementation order, validation checklist, and an explicit "Needs Confirmation" list.
+
+**Blockers:** unchanged — no CMS/developer/live-site access in this environment. The ticket above is written and ready but **no live changes have been made to allcheck.biz.**
+
+**Next recommended task:** Hand `tasks/PRIORITY_1_TECHNICAL_DEVELOPER_TICKET.md` to a developer for implementation. In parallel (no CMS access needed), review and finalize the Homepage Batch 1 copy/SEO recommendations in `HOMEPAGE_BATCH.md` against the real GSC data now available.
